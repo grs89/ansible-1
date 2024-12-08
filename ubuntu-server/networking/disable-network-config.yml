@@ -1,0 +1,22 @@
+---
+- name: Deshabilitar configuración de red en cloud-init
+  hosts: all
+  become: true
+
+  tasks:
+    - name: Crear directorio si no existe
+      file:
+        path: /etc/cloud/cloud.cfg.d
+        state: directory
+        owner: root
+        group: root
+        mode: '0755'
+
+    - name: Escribir configuración en el archivo
+      copy:
+        dest: /etc/cloud/cloud.cfg.d/99-disable-network-config.cfg
+        content: |
+          network: {config: disabled}
+        owner: root
+        group: root
+        mode: '0644'
