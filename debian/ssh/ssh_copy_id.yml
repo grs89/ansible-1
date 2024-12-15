@@ -1,0 +1,10 @@
+---
+- name: Copiar clave SSH a servidores remotos
+  hosts: all
+  become: true
+  tasks:
+    - name: Copiar la clave pública SSH al servidor remoto
+      authorized_key:
+        user: "{{ ansible_user }}"
+        state: present
+        key: "{{ lookup('file', '~/.ssh/id_rsa.pub') }}"

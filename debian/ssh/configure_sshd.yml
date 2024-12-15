@@ -1,6 +1,6 @@
 ---
 - name: Configurar SSH para permitir autenticación por clave pública
-  hosts: kvm_servers
+  hosts: all
   become: yes
   tasks:
     - name: Asegurarse de que PubkeyAuthentication esté habilitado en sshd_config
