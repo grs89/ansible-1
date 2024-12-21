@@ -1,6 +1,7 @@
+## ansible-playbook -i inventory.yml debian/networking/set_static_ip.yml --become
 ---
 - name: Configurar IP estática en servidores Debian
-  hosts: all
+  hosts: KVM-grs
   become: yes  # Ejecutar como superusuario
   vars:
     static_ip: "{{ hostvars[inventory_hostname].static_ip }}"
