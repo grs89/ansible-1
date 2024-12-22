@@ -1,7 +1,7 @@
 ---
 - name: Copiar clave SSH a servidores remotos
-  hosts: all
-  become: false
+  hosts: ubuntu_servers
+#  become: false
 
   vars:
     ssh_key_path: "{{ lookup('file', '~/.ssh/id_rsa.pub') }}"

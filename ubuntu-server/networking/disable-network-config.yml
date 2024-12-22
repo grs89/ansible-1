@@ -1,6 +1,6 @@
 ---
 - name: Deshabilitar configuración de red en cloud-init
-  hosts: all
+  hosts: ubuntu_servers
   become: true
 
   tasks:
