@@ -1,0 +1,81 @@
+# ansible-playbook -i inventory.yml ubuntu-server/k8s/k8s.yml --ask-become-pass
+
+---
+- name: Install Kubernetes on Ubuntu nodes
+  hosts: ubuntu_servers_k8s
+  become: true
+
+  tasks:
+    - name: Update apt package index
+      apt:
+        update_cache: yes
+
+    - name: Install required packages
+      apt:
+        name:
+          - apt-transport-https
+          - ca-certificates
+          - curl
+          - gnupg
+        state: present
+
+    - name: Add Kubernetes GPG key
+      shell: curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.32/deb/Release.key | gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+      args:
+        creates: /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+
+    - name: Set correct permissions for Kubernetes GPG keyring
+      file:
+        path: /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+        mode: '0644'
+
+    - name: Add Kubernetes repository to apt sources
+      copy:
+        dest: /etc/apt/sources.list.d/kubernetes.list
+        content: 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.32/deb/ /'
+        mode: '0644'
+
+    - name: Update apt package index again
+      apt:
+        update_cache: yes
+
+
+
+    - name: Install Kubernetes binaries (kubelet, kubeadm, kubectl)
+      apt:
+        name: "{{ packages }}"
+        state: present
+        update_cache: yes
+      vars:
+        packages:
+          - kubelet
+          - kubeadm
+          - kubectl
+      ignore_errors: yes
+
+    - name: Remove swapfile from /etc/fstab
+      mount:
+        name: "{{ item }}"
+        fstype: swap
+        state: absent
+      with_items:
+        - swap
+        - none
+
+    - name: Disable swap
+      command: swapoff -a
+      when: ansible_swaptotal_mb > 0
+
+    - name: Configure node IP for Kubernetes
+      lineinfile:
+        path: /etc/default/kubelet
+        line: KUBELET_EXTRA_ARGS=--node-ip={{ static_ip }}
+      notify:
+        - Restart kubelet
+
+  handlers:
+    - name: Restart kubelet
+      service:
+        name: kubelet
+        daemon_reload: yes
+        state: restarted
