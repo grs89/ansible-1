@@ -1,8 +1,8 @@
+#ansible-playbook -i inventory.yml ubuntu-server/ssh/ssh-copy-id.yml --ask-become-pass
 ---
 - name: Copiar clave SSH a servidores remotos
   hosts: ubuntu_servers
-#  become: false
-
+  become: true
   vars:
     ssh_key_path: "{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
 
@@ -18,5 +18,20 @@
     - name: Copiar clave pública al archivo authorized_keys
       authorized_key:
         user: "{{ ansible_user }}"
+        state: present
+        key: "{{ ssh_key_path }}"
+
+#  tasks:
+    - name: Asegurarse de que el directorio .ssh exista
+      file:
+        path: /root/.ssh
+        state: directory
+        mode: '0700'
+        owner: root
+        group: root
+
+    - name: Copiar clave pública al archivo authorized_keys
+      authorized_key:
+        user: root
         state: present
         key: "{{ ssh_key_path }}"
