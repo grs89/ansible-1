@@ -3,16 +3,18 @@ all:
     FreePBX:
 #      ansible_host: 192.168.10.58
       ansible_user: grs
+      ansible_ssh_private_key_file: ~/.ssh/id_rsa
       become: true
       ansible_become_method: su
       ansible_become_user: root
       ansible_become_pass: "134679"
       static_ip: 192.168.10.110
-      ansible_ssh_private_key_file: ~/.ssh/id_rsa
+
 
     Debian-Testv1:
 #      ansible_host: 192.168.10.59
-      ansible_user: grs
+      ansible_user: 
+      ansible_ssh_private_key_file: ~/.ssh/id_rsa
       become: true
       ansible_become_method: su
       ansible_become_user: root
@@ -24,6 +26,7 @@ all:
     KVM-grs:
       ansible_host: 192.168.10.59
       ansible_user: grs
+      ansible_ssh_private_key_file: ~/.ssh/id_rsa
       become: true
       ansible_become_method: su
       ansible_become_user: root
@@ -35,25 +38,25 @@ all:
     ubuntu_servers:
       hosts:
         docker1:
-          ansible_host: 192.168.10.55
+          ansible_host: 192.168.10.101
           ansible_user: grs
           ansible_ssh_private_key_file: ~/.ssh/id_rsa
           ansible_become_method: sudo
           static_ip:  192.168.10.101
         k8s-cp:
-          ansible_host: 192.168.10.50
+          ansible_host: 192.168.10.102
           ansible_user: grs
           ansible_ssh_private_key_file: ~/.ssh/id_rsa
           ansible_become_method: sudo
           static_ip: 192.168.10.102
         k8s-w1:
-          ansible_host: 192.168.10.51
+          ansible_host: 192.168.10.103
           ansible_user: grs
           ansible_ssh_private_key_file: ~/.ssh/id_rsa
           ansible_become_method: sudo
           static_ip: 192.168.10.103
         k8s-w2:
-          ansible_host: 192.168.10.54
+          ansible_host: 192.168.10.104
           ansible_user: grs
           ansible_ssh_private_key_file: ~/.ssh/id_rsa
           ansible_become_method: sudo
