@@ -53,7 +53,7 @@
         seconds: 50
 
     - name: Deploy Calico network plugin
-      shell: kubectl create -f https://raw.githubusercontent.com/projectcalico/calico/v3.29.1/manifests/tigera-operator.yaml
+      shell: kubectl apply -f https://raw.githubusercontent.com/projectcalico/calico/v3.25.0/manifests/calico.yaml
       args:
         executable: /bin/bash
 
