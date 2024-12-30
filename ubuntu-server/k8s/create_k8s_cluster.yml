@@ -17,7 +17,7 @@
         enabled: true
 
     - name: Initialize the Kubernetes cluster
-      command: kubeadm init --pod-network-cidr=192.168.0.0/16
+      command: kubeadm init --pod-network-cidr=10.31.0.0/16
       register: kubeadm_init_output
 
     - name: Create .kube directory for root user
@@ -27,7 +27,6 @@
         mode: '0700'
 
     - name: Copy Kubernetes admin.conf to root's kube config
-#      copy:
       ansible.builtin.copy:
         remote_src: yes
         src: /etc/kubernetes/admin.conf
@@ -35,6 +34,13 @@
         owner: root
         group: root
         mode: '0644'
+
+    - name: Extract join command
+      shell: |
+        echo "{{ kubeadm_init_output.stdout }}" | grep "kubeadm join" > /tmp/kube_join_command.sh
+      args:
+        creates: /tmp/kube_join_command.sh
+      register: join_command
 
     - name: Restart Containerd
       service:
@@ -44,11 +50,7 @@
 
     - name: Wait for 5 seconds before proceeding
       pause:
-        seconds: 20
-
-    # - name: Change ownership of kube config
-    #   command:
-    #     cmd: chown $(id -u):$(id -g) /root/.kube/config
+        seconds: 50
 
     - name: Deploy Calico network plugin
       shell: kubectl create -f https://raw.githubusercontent.com/projectcalico/calico/v3.29.1/manifests/tigera-operator.yaml
@@ -57,16 +59,12 @@
 
     - name: Extract join command
       shell: |
-        echo "{{ kubeadm_init_output.stdout_lines | join('\n') }}" | grep -A 2 "kubeadm join" > /tmp/kube_join_command.sh
+        echo "{{ kubeadm_init_output.stdout }}" | grep "kubeadm join" > /tmp/kube_join_command.sh
       args:
         creates: /tmp/kube_join_command.sh
       register: join_command
 
-    - name: Display join command for workers
-      debug:
-        var: join_command.stdout
-
-
+###
 
 - name: Join worker nodes to Kubernetes cluster
   hosts: workers
@@ -87,7 +85,7 @@
     - name: Fetch join command from master
       slurp:
         src: /tmp/kube_join_command.sh
-      delegate_to: k8s-master
+      delegate_to: k8s-cp
       register: join_command_script
 
     - name: Save join script locally
