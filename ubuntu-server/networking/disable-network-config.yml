@@ -21,3 +21,8 @@
         owner: root
         group: root
         mode: '0644'
+
+    - name: Remove the 50-cloud-init.yaml file
+      file:
+        path: /etc/netplan/50-cloud-init.yaml
+        state: absent
