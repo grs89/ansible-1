@@ -1,7 +1,7 @@
-# ansible-playbook -i inventory.yml ubuntu-server/k8s/create_k8s_cluster.yml --ask-become-pass 
+# ansible-playbook -i inventory.yml ubuntu-server/k8s/create_k8s_cluster.yml --ask-become-pass
 ---
 - name: Initialize Kubernetes master node
-  hosts: master
+  hosts: k8s-cp
   become: true
   tasks:
 
@@ -53,7 +53,7 @@
         seconds: 50
 
     - name: Deploy Calico network plugin
-      shell: kubectl apply -f https://raw.githubusercontent.com/projectcalico/calico/v3.25.0/manifests/calico.yaml
+      shell: kubectl apply -f https://raw.githubusercontent.com/projectcalico/calico/v3.29.1/manifests/calico.yaml
       args:
         executable: /bin/bash
 
@@ -67,7 +67,7 @@
 ###
 
 - name: Join worker nodes to Kubernetes cluster
-  hosts: workers
+  hosts: k8s-w1:k8s-w2
   become: true
   tasks:
 

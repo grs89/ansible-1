@@ -2,7 +2,7 @@
 
 ---
 - name: Install Kubernetes on Ubuntu nodes
-  hosts: ubuntu_servers_k8s
+  hosts: k8s-cp:k8s-w1:k8s-w2
   become: true
 
   tasks:
@@ -39,8 +39,6 @@
       apt:
         update_cache: yes
 
-
-
     - name: Install Kubernetes binaries (kubelet, kubeadm, kubectl)
       apt:
         name: "{{ packages }}"
@@ -72,6 +70,40 @@
         line: KUBELET_EXTRA_ARGS=--node-ip={{ static_ip }}
       notify:
         - Restart kubelet
+
+    - name: Crear archivo de configuración para módulos containerd
+      copy:
+        dest: /etc/modules-load.d/containerd.conf
+        content: |
+          overlay
+          br_netfilter
+        owner: root
+        group: root
+        mode: '0644'
+
+    - name: Cargar módulo overlay
+      command: modprobe overlay
+      args:
+        warn: false
+
+    - name: Cargar módulo br_netfilter
+      command: modprobe br_netfilter
+      args:
+        warn: false
+
+    - name: Crear archivo de configuración de sysctl para Kubernetes
+      copy:
+        dest: /etc/sysctl.d/kubernetes.conf
+        content: |
+          net.bridge.bridge-nf-call-ip6tables = 1
+          net.bridge.bridge-nf-call-iptables = 1
+          net.ipv4.ip_forward = 1
+        owner: root
+        group: root
+        mode: '0644'
+
+    - name: Recargar configuraciones sysctl
+      command: sysctl --system
 
   handlers:
     - name: Restart kubelet
