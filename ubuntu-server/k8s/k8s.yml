@@ -2,7 +2,7 @@
 
 ---
 - name: Install Kubernetes on Ubuntu nodes
-  hosts: k8s-cp:k8s-w1:k8s-w2
+  hosts: kubuntu_servers
   become: true
 
   tasks:
