@@ -1,4 +1,4 @@
-# ansible-playbook -i inventory.yml ubuntu-server/docker/install_docker.yml --ask-become-pass
+# ansible-playbook -i inventory.yml ubuntu-server/10-docker/install_docker.yml --ask-become-pass
 ---
 - name: Instalar Docker en Ubuntu Server 24.04
   hosts: ubuntu_servers

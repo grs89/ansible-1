@@ -1,4 +1,4 @@
-#ansible-playbook -i inventory.yml ubuntu-server/ssh/ssh-copy-id.yml --ask-pass
+#ansible-playbook -i inventory.yml ubuntu-server/01-ssh/ssh-copy-id.yml --ask-pass
 ---
 - name: Copiar clave SSH a servidores remotos
   hosts: ubuntu_servers

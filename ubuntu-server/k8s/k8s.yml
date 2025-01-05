@@ -2,7 +2,7 @@
 
 ---
 - name: Install Kubernetes on Ubuntu nodes
-  hosts: kubuntu_servers
+  hosts: k8s-cp:k8s-w1:k8s-w2
   become: true
 
   tasks:
@@ -18,6 +18,14 @@
           - curl
           - gnupg
         state: present
+
+    - name: Ensure /etc/apt/keyrings directory exists
+      file:
+        path: /etc/apt/keyrings
+        state: directory
+        mode: '0755'
+        owner: root
+        group: root
 
     - name: Add Kubernetes GPG key
       shell: curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.32/deb/Release.key | gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
@@ -82,14 +90,12 @@
         mode: '0644'
 
     - name: Cargar módulo overlay
-      command: modprobe overlay
-      args:
-        warn: false
+      shell: modprobe overlay
+      become: true
 
     - name: Cargar módulo br_netfilter
-      command: modprobe br_netfilter
-      args:
-        warn: false
+      shell: modprobe br_netfilter
+      become: true
 
     - name: Crear archivo de configuración de sysctl para Kubernetes
       copy:

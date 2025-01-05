@@ -1,4 +1,4 @@
-# ansible-playbook -i inventory.yml ubuntu-server/networking/set_static_ip.yml --ask-become-pass
+# ansible-playbook -i inventory.yml ubuntu-server/02-networking/set_static_ip.yml --ask-become-pass
 ---
 - name: Configurar IP estática en servidores Ubuntu
   hosts: ubuntu_servers
