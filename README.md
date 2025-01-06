@@ -30,7 +30,7 @@ ejemplo: ansible-playbook nombre_del_playbook.yml
 
 ## Licencia
 
-Este proyecto está licenciado bajo la Licencia MIT. Consulta el archivo `LICENSE` para más detalles.
+Este proyecto está licenciado bajo la Apache-2.0 License. Consulta el archivo `LICENSE` para más detalles.
 
 ## Recursos Adicionales
 
