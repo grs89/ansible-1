@@ -1,7 +1,18 @@
 all:
   hosts:
+
+    KVM-grs:
+      ansible_host: 192.168.10.100
+      ansible_user: grs
+      ansible_ssh_private_key_file: ~/.ssh/id_rsa
+      become: true
+      ansible_become_method: su
+      ansible_become_user: root
+      ansible_become_pass: "134679"
+      static_ip: 192.168.10.100
+
     FreePBX:
-#      ansible_host: 192.168.10.58
+      ansible_host: 192.168.10.58
       ansible_user: grs
       ansible_ssh_private_key_file: ~/.ssh/id_rsa
       become: true
@@ -10,20 +21,7 @@ all:
       ansible_become_pass: "134679"
       static_ip: 192.168.10.110
 
-
     Debian-Testv1:
-#      ansible_host: 192.168.10.59
-      ansible_user: 
-      ansible_ssh_private_key_file: ~/.ssh/id_rsa
-      become: true
-      ansible_become_method: su
-      ansible_become_user: root
-      ansible_become_pass: "134679"
-      static_ip: 192.168.10.111
-
-#    kvm_servers:
-#      hosts:
-    KVM-grs:
       ansible_host: 192.168.10.59
       ansible_user: grs
       ansible_ssh_private_key_file: ~/.ssh/id_rsa
@@ -31,7 +29,7 @@ all:
       ansible_become_method: su
       ansible_become_user: root
       ansible_become_pass: "134679"
-      static_ip: 192.168.10.100
+      static_ip: 192.168.10.111
 
 
   children:
