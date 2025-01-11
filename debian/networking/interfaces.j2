@@ -6,9 +6,9 @@ source /etc/network/interfaces.d/*
 auto lo
 iface lo inet loopback
 
-# Configuración de la interfaz principal - Server Fisico
-auto enp30s0
-iface enp30s0 inet static
+# Cambiar segun nombre de interfaces
+auto enp1s0
+iface enp1s0 inet static
     address {{ static_ip }}
     netmask 255.255.255.0
     gateway 192.168.10.1
