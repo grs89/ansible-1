@@ -1,0 +1,20 @@
+## ansible-playbook -i inventory.yml debian-ubuntu_server/install_minimal/install_minimal.yml --ask-pass
+
+---
+- name: Instalar una lista de paquetes en Debian/Ubuntu
+  hosts: all
+  become: true
+  tasks:
+    - name: Actualizar la lista de paquetes
+      apt:
+        update_cache: yes
+
+    - name: Instalar paquetes necesarios
+      apt:
+        name: "{{ item }}"
+        state: present
+      loop:
+        - curl
+        - git
+        - htop
+        - bmon
