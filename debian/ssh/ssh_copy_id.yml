@@ -1,6 +1,7 @@
+#ansible-playbook -i inventory.yml debian/networking/set_static_ip.yml --ask-pass
 ---
 - name: Copiar clave SSH a servidores remotos
-  hosts: all
+  hosts: Debian-Server-v1
   become: true
   tasks:
     - name: Copiar la clave pública SSH al servidor remoto
