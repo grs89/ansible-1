@@ -1,0 +1,10 @@
+"filename", "language", "YAML", "Jinja", "comment", "blank", "total"
+"/Users/grs/Documents/github/ansible-1/ubuntu-server/01-ssh/ssh-copy-id.yml", "YAML", 31, 0, 2, 5, 38
+"/Users/grs/Documents/github/ansible-1/ubuntu-server/01-ssh/ssh_config.yml", "YAML", 21, 0, 1, 3, 25
+"/Users/grs/Documents/github/ansible-1/ubuntu-server/02-networking/disable-network-config.yml", "YAML", 24, 0, 1, 4, 29
+"/Users/grs/Documents/github/ansible-1/ubuntu-server/02-networking/netplan_static_config.j2", "Jinja", 0, 12, 0, 1, 13
+"/Users/grs/Documents/github/ansible-1/ubuntu-server/02-networking/set_static_ip.yml", "YAML", 18, 0, 1, 2, 21
+"/Users/grs/Documents/github/ansible-1/ubuntu-server/10-docker/install_docker.yml", "YAML", 37, 0, 1, 8, 46
+"/Users/grs/Documents/github/ansible-1/ubuntu-server/k8s/create_k8s_cluster.yml", "YAML", 81, 0, 3, 18, 102
+"/Users/grs/Documents/github/ansible-1/ubuntu-server/k8s/k8s.yml", "YAML", 100, 0, 1, 19, 120
+"Total", "-", 312, 12, 10, 60, 394
