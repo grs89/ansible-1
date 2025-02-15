@@ -1,7 +1,7 @@
 #ansible-playbook -i inventory.yml ubuntu-server/01-ssh/sshd_config.yml --ask-pass
 ---
 - name: Configurar SSH para claves públicas
-  hosts: ubuntu_servers
+  hosts: k8s_servers
   become: true
   tasks:
     - name: Asegurarse de que PubkeyAuthentication está configurado como "yes"

@@ -17,7 +17,6 @@
         enabled: true
 
     - name: Initialize the Kubernetes cluster
-#      command: kubeadm init --pod-network-cidr=10.31.0.0/16
       command: kubeadm init --pod-network-cidr=10.31.0.0/16
       register: kubeadm_init_output
 
@@ -54,7 +53,7 @@
         seconds: 50
 
     - name: Deploy Calico network plugin
-      shell: kubectl apply -f https://raw.githubusercontent.com/projectcalico/calico/v3.29.1/manifests/calico.yaml
+      shell: kubectl apply -f https://raw.githubusercontent.com/projectcalico/calico/v3.25.0/manifests/calico.yaml
       args:
         executable: /bin/bash
 

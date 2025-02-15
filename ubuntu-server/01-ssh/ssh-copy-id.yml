@@ -1,7 +1,7 @@
 #ansible-playbook -i inventory.yml ubuntu-server/01-ssh/ssh-copy-id.yml --ask-pass
 ---
 - name: Copiar clave SSH a servidores remotos
-  hosts: ubuntu_servers
+  hosts: k8s_servers
   become: true
   vars:
     ssh_key_path: "~/.ssh/id_rsa.pub"

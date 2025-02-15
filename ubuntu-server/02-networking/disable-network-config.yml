@@ -1,7 +1,7 @@
 # ansible-playbook -i inventory.yml ubuntu-server/02-networking/disable-network-config.yml --ask-become-pass
 ---
 - name: Deshabilitar configuración de red en cloud-init
-  hosts: ubuntu_servers
+  hosts: k8s_servers
   become: true
 
   tasks:

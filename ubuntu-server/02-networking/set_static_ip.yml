@@ -1,7 +1,7 @@
 # ansible-playbook -i inventory.yml ubuntu-server/02-networking/set_static_ip.yml --ask-become-pass
 ---
 - name: Configurar IP estática en servidores Ubuntu
-  hosts: ubuntu_servers
+  hosts: k8s_servers
   become: yes  # Ejecutar como superusuario
   vars:
     static_ip: "{{ hostvars[inventory_hostname].static_ip }}"

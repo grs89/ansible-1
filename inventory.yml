@@ -52,6 +52,9 @@ all:
           ansible_become_user: root
           ansible_become_pass: "134679"
           static_ip:  192.168.10.101
+
+    k8s_servers:
+      hosts:
         k8s-cp:
           ansible_host: 192.168.10.102
           ansible_user: grs
