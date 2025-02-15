@@ -17,7 +17,8 @@
         enabled: true
 
     - name: Initialize the Kubernetes cluster
-      command: kubeadm init --pod-network-cidr=10.31.0.0/16
+      command: kubeadm init
+#      command: kubeadm init --pod-network-cidr=10.31.0.0/16
       register: kubeadm_init_output
 
     - name: Create .kube directory for root user
