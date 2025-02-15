@@ -1,7 +1,7 @@
-# ansible-playbook -i inventory.yml ubuntu-server/10-docker/install_docker.yml --ask-become-pass
+# ansible-playbook -i inventory.yml ubuntu-server/tools/docker/install_docker.yml --ask-become-pass
 ---
 - name: Instalar Docker en Ubuntu Server 24.04
-  hosts: ubuntu_servers
+  hosts: k8s_servers
   become: yes  # Para obtener privilegios de superusuario
   tasks:
     - name: Actualizar lista de paquetes

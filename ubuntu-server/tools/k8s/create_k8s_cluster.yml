@@ -1,4 +1,4 @@
-# ansible-playbook -i inventory.yml ubuntu-server/k8s/create_k8s_cluster.yml --ask-become-pass
+# ansible-playbook -i inventory.yml ubuntu-server/tools/k8s/create_k8s_cluster.yml --ask-become-pass
 ---
 - name: Initialize Kubernetes master node
   hosts: k8s-cp
