@@ -1,4 +1,4 @@
-#ansible-playbook -i inventory.yml ubuntu-server/01-ssh/sshd_config.yml --ask-pass
+# ansible-playbook -i inventory.yml ubuntu-server/01-ssh/sshd_config.yml --ask-pass
 ---
 - name: Configurar SSH para claves públicas
   hosts: k8s_servers

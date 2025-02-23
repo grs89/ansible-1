@@ -1,7 +1,7 @@
-#ansible-playbook -i inventory.yml debian-ubuntu_server/01-date/utc.yml --ask-become-pass
+# ansible-playbook -i inventory.yml debian-ubuntu_server/01-date/utc.yml --ask-become-pass
 ---
 - name: Set time zone to Bogotá (UTC-5)
-  hosts: all
+  hosts: k8s_servers
   become: true
   tasks:
     - name: Set the system timezone to Bogotá
