@@ -1,0 +1,26 @@
+# ansible-playbook -i inventory.yml debian-ubuntu_server/03-tools/install-nfs.yml --ask-become-pass
+
+---
+- name: Install NFS on Debian and Ubuntu
+  hosts: Debian-Server-v1
+  become: yes
+  tasks:
+    - name: Update apt cache
+      apt:
+        update_cache: yes
+
+    - name: Install NFS server package
+      apt:
+        name: nfs-kernel-server
+        state: present
+
+    - name: Install NFS client package
+      apt:
+        name: nfs-common
+        state: present
+
+    - name: Ensure NFS server is running and enabled
+      service:
+        name: nfs-kernel-server
+        state: started
+        enabled: yes
